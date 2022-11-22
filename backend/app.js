@@ -5,6 +5,8 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 
+const userRoutes = require("./routes/user");
+
 mongoose
   .connect(
     "mongodb+srv://farrah1:nMUbA9HJfQFXlpdI@cluster0.tp84wve.mongodb.net/?retryWrites=true&w=majority",
@@ -28,6 +30,8 @@ app.use((req, res, next) => {
   );
   next();
 });
+
+app.use("/api/auth", userRoutes);
 
 // exporter l'app pour y acceder depuis d'autre fichier server.js
 module.exports = app;
