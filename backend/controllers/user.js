@@ -20,6 +20,7 @@ exports.signup = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }));
 };
 
+//Authentification utilisateur
 exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email })
     .then((user) => {
@@ -38,7 +39,7 @@ exports.login = (req, res, next) => {
             } else {
               res.status(200).json({
                 userId: user._id,
-                token: jwt.sign({ userId: user._id }, "RANDOM_TOKEN_SECRET", {
+                token: jwt.sign({ userId: user._id }, process.env.TOKEN, {
                   expiresIn: "24h",
                 }),
               });
